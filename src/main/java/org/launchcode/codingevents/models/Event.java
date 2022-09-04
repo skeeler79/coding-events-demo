@@ -1,8 +1,6 @@
 package org.launchcode.codingevents.models;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.util.Objects;
 
 /**
@@ -24,16 +22,52 @@ public class Event {
     @Email(message = "Invalid email. Try again.")
     private String contactEmail;
 
-    public Event(String name, String description, String contactEmail) {
+    @NotBlank(message="Please enter a location.")
+    @NotNull(message="Please enter a location.")
+    private String location;
+
+    @AssertTrue(message="The attendee must be registered.")
+    private boolean registration = true; //when set to true, automatically checks the checkbox in the create form
+
+    @Positive(message="Please enter at least 1 attendee.")
+    @NotNull
+    private Integer numOfAttendees;
+
+    @NotNull(message= "Please serve food")
+    @Min(value =1, message= "courses must be between 1 and 3")
+    @Max(value = 3, message= "courses must be between 1 and 3")
+    private Integer numOfCourses;
+
+    public Event(String name, String description, String contactEmail, String location, Integer numOfAttendees, Integer numOfCourses) {
         this();
         this.name = name;
         this.description = description;
         this.contactEmail = contactEmail;
+        this.location = location;
+        this.numOfAttendees= numOfAttendees;
+        this.numOfCourses = numOfCourses;
+
     }
 
     public Event() {
         this.id = nextId;
         nextId++;
+    }
+
+    public boolean isRegistration() {
+        return registration;
+    }
+
+    public void setRegistration(boolean registration) {
+        this.registration = registration;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     public String getName() {
@@ -58,6 +92,22 @@ public class Event {
 
     public void setContactEmail(String contactEmail) {
         this.contactEmail = contactEmail;
+    }
+
+    public Integer getNumOfAttendees() {
+        return numOfAttendees;
+    }
+
+    public void setNumOfAttendees(Integer numOfAttendees) {
+        this.numOfAttendees = numOfAttendees;
+    }
+
+    public Integer getNumOfCourses() {
+        return numOfCourses;
+    }
+
+    public void setNumOfCourses(Integer numOfCourses) {
+        this.numOfCourses = numOfCourses;
     }
 
     public int getId() {
