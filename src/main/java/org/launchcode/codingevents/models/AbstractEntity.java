@@ -2,8 +2,10 @@ package org.launchcode.codingevents.models;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
 import java.util.Objects;
 
+@MappedSuperclass
 public abstract class AbstractEntity {
 
     @Id
